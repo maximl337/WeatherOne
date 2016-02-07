@@ -4,11 +4,14 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,6 +26,11 @@ import com.redmesasoftworks.angad.weatherone.service.WeatherServiceCallback;
 import com.redmesasoftworks.angad.weatherone.service.YahooWeatherService;
 
 import org.w3c.dom.Text;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements WeatherServiceCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -143,6 +151,43 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceCal
 
             mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
             mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
+
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+
+            List<Address> addresses = null;
+
+            try {
+                addresses = geocoder.getFromLocation(
+                        mLastLocation.getLatitude(),
+                        mLastLocation.getLongitude(),
+                        // In this sample, get just a single address.
+                        1);
+
+            } catch (IOException ioException) {
+                // Catch network or other I/O problems.
+                Toast.makeText(this, ioException.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+            if(addresses != null || addresses.size() != 0) {
+
+                Address address = addresses.get(0);
+
+                ArrayList<String> addressFragments = new ArrayList<String>();
+
+                // Fetch the address lines using getAddressLine,
+                // join them, and send them to the thread.
+                for(int i = 0; i < address.getMaxAddressLineIndex(); i++) {
+                    addressFragments.add(address.getAddressLine(i));
+                }
+
+                Toast.makeText(this, TextUtils.join(System.getProperty("line.separator"),
+                        addressFragments), Toast.LENGTH_LONG).show();
+
+            } else {
+
+                Toast.makeText(this, "addresses is empty", Toast.LENGTH_LONG).show();
+            }
+
         }
     }
 
