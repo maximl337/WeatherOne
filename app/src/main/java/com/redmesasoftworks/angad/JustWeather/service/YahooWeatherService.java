@@ -1,18 +1,16 @@
-package com.redmesasoftworks.angad.weatherone.service;
+package com.redmesasoftworks.angad.JustWeather.service;
 
 import android.net.Uri;
 import android.os.AsyncTask;
 
-import com.redmesasoftworks.angad.weatherone.data.Channel;
+import com.redmesasoftworks.angad.JustWeather.data.Channel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -42,7 +40,7 @@ public class YahooWeatherService {
             @Override
             protected String doInBackground(String... params) {
 
-                String YQL = String.format("select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"%s\")", params[0]);
+                String YQL = String.format("select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"%s\") and u='c'", params[0]);
 
                 String endpoint = String.format("https://query.yahooapis.com/v1/public/yql?q=%s&format=json", Uri.encode(YQL));
 

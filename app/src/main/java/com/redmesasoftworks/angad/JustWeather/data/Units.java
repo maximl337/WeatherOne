@@ -1,4 +1,4 @@
-package com.redmesasoftworks.angad.weatherone.data;
+package com.redmesasoftworks.angad.JustWeather.data;
 
 import org.json.JSONObject;
 

@@ -1,6 +1,6 @@
-package com.redmesasoftworks.angad.weatherone.service;
+package com.redmesasoftworks.angad.JustWeather.service;
 
-import com.redmesasoftworks.angad.weatherone.data.Channel;
+import com.redmesasoftworks.angad.JustWeather.data.Channel;
 
 /**
  * Created by angad on 2/2/2016.

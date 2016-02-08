@@ -1,4 +1,4 @@
-package com.redmesasoftworks.angad.weatherone;
+package com.redmesasoftworks.angad.JustWeather;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

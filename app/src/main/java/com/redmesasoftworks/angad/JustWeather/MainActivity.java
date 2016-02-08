@@ -1,4 +1,4 @@
-package com.redmesasoftworks.angad.weatherone;
+package com.redmesasoftworks.angad.JustWeather;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -8,11 +8,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,12 +17,10 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-import com.redmesasoftworks.angad.weatherone.data.Channel;
-import com.redmesasoftworks.angad.weatherone.data.Item;
-import com.redmesasoftworks.angad.weatherone.service.WeatherServiceCallback;
-import com.redmesasoftworks.angad.weatherone.service.YahooWeatherService;
-
-import org.w3c.dom.Text;
+import com.redmesasoftworks.angad.JustWeather.data.Channel;
+import com.redmesasoftworks.angad.JustWeather.data.Item;
+import com.redmesasoftworks.angad.JustWeather.service.WeatherServiceCallback;
+import com.redmesasoftworks.angad.JustWeather.service.YahooWeatherService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,9 +41,6 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceCal
 
     private Location mLastLocation;
 
-    private TextView mLatitudeText;
-    private TextView mLongitudeText;
-
     private static final int REQUEST_LOCATION = 0;
 
     private static String[] PERMISSION_LOCATION = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
@@ -63,15 +55,12 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceCal
         conditionTextView = (TextView) findViewById(R.id.conditionTextView);
         locationTextView = (TextView) findViewById(R.id.locationTextView);
 
-        mLatitudeText = (TextView) findViewById(R.id.mLatitudeText);
-        mLongitudeText = (TextView) findViewById(R.id.mLongitudeText);
-
         service = new YahooWeatherService(this);
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading...");
         dialog.show();
 
-        service.refreshWeather("Austin, TX");
+        service.refreshWeather("Barrie, ON");
 
         //Google Location
         if (mGoogleApiClient == null) {
@@ -149,9 +138,6 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceCal
 
         if (mLastLocation != null) {
 
-            mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
-            mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
-
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
 
             List<Address> addresses = null;
@@ -179,9 +165,11 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceCal
                 for(int i = 0; i < address.getMaxAddressLineIndex(); i++) {
                     addressFragments.add(address.getAddressLine(i));
                 }
+                service.refreshWeather(addresses.get(0).getLocality() + ", " +
+                                        addresses.get(0).getCountryName());
 
-                Toast.makeText(this, TextUtils.join(System.getProperty("line.separator"),
-                        addressFragments), Toast.LENGTH_LONG).show();
+                /*Toast.makeText(this, TextUtils.join(System.getProperty("line.separator"),
+                        addressFragments), Toast.LENGTH_LONG).show();*/
 
             } else {
 
@@ -219,8 +207,6 @@ public class MainActivity extends AppCompatActivity implements WeatherServiceCal
 
                     Toast.makeText(this, "Location Permission not given", Toast.LENGTH_LONG).show();
                 }
-
-                return;
             }
 
             // other cases

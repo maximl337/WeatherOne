@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:id="@+id/content_main"
-    tools:context="com.redmesasoftworks.angad.weatherone.MainActivity"
+    tools:context="com.redmesasoftworks.angad.JustWeather.MainActivity"
     tools:showIn="@layout/activity_main">
 
 
@@ -30,6 +30,7 @@
         android:id="@+id/temperatureTextView"
         android:layout_below="@+id/weatherIconImageView"
         android:layout_centerHorizontal="true"
+        android:textSize="50sp"
         android:textStyle="bold" />
 
     <TextView
@@ -56,35 +57,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/yahoo_logo"
         android:id="@+id/brand"
-        android:layout_above="@+id/brandTextView"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/brand"
-        android:id="@+id/brandTextView"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:textStyle="italic" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/latitude"
-        android:id="@+id/mLatitudeText"
-        android:layout_below="@+id/locationTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/longitude"
-        android:id="@+id/mLongitudeText"
-        android:layout_below="@+id/mLatitudeText"
         android:layout_centerHorizontal="true" />
+    
+
 </RelativeLayout>

@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.redmesasoftworks.angad.weatherone"
+        applicationId "com.redmesasoftworks.angad.JustWeather"
         minSdkVersion 9
         targetSdkVersion 23
         versionCode 1
